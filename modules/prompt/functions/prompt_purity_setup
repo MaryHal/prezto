@@ -57,10 +57,10 @@ function prompt_purity_pwd {
 prompt_purity_preexec() {
     cmd_timestamp=$EPOCHSECONDS
 
-    # shows the current dir and executed command in the title when a process is active
-    print -Pn "\e]0;"
+    # # shows the current dir and executed command in the title when a process is active
+    # print -Pn "\e]0;"
     echo -nE "$PWD:t: $2"
-    print -Pn "\a"
+    # print -Pn "\a"
 }
 
 # string length ignoring ansi escapes
@@ -70,13 +70,13 @@ prompt_purity_string_length() {
 }
 
 prompt_purity_precmd() {
-    # shows the full path in the title
-    print -Pn '\e]0;%~\a'
+    # # shows the full path in the title
+    # print -Pn '\e]0;%~\a'
 
     # Format PWD
     prompt_purity_pwd
 
-    local prompt_purity_preprompt="%F{yellow}$(prompt_purity_cmd_exec_time) %F{blue}$_prompt_purity_pwd%f "
+    local prompt_purity_preprompt="%F{yellow}$(prompt_purity_cmd_exec_time) %F{blue}$_prompt_purity_pwd%f"
 
     # I like a bit more spacing.
     print ""
