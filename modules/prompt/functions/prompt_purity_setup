@@ -21,7 +21,7 @@
 
 
 # turns seconds into human readable time
-# 165392 => 1d 21h 56m 32s
+# e.g. 165392 => 1d 21h 56m 32s
 prompt_purity_human_time() {
     echo -n " "
     local tmp=$1
@@ -59,14 +59,8 @@ prompt_purity_preexec() {
 
     # # shows the current dir and executed command in the title when a process is active
     # print -Pn "\e]0;"
-    echo -nE "$PWD:t: $2"
+    # echo -nE "$PWD:t: $2"
     # print -Pn "\a"
-}
-
-# string length ignoring ansi escapes
-prompt_purity_string_length() {
-    # Subtract one since newline is counted as two characters
-    echo $(( ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}} - 1 ))
 }
 
 prompt_purity_precmd() {
@@ -88,7 +82,6 @@ prompt_purity_precmd() {
     unset cmd_timestamp
 }
 
-
 prompt_purity_setup() {
     setopt LOCAL_OPTIONS
     unsetopt XTRACE KSH_ARRAYS
@@ -100,15 +93,9 @@ prompt_purity_setup() {
 
     zmodload zsh/datetime
     autoload -Uz add-zsh-hook
-    # autoload -Uz vcs_info
 
     add-zsh-hook precmd prompt_purity_precmd
     add-zsh-hook preexec prompt_purity_preexec
-
-    # zstyle ':vcs_info:*' enable git
-    # zstyle ':vcs_info:*' use-simple true
-    # zstyle ':vcs_info:git*' formats ' %b'
-    # zstyle ':vcs_info:git*' actionformats ' %b|%a'
 
     # show username@host if logged in through SSH
     [[ "$SSH_CONNECTION" != '' ]] && prompt_purity_username=' %n@%m'
