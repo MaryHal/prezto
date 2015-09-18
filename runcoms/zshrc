@@ -13,3 +13,18 @@ fi
 # Customize to your needs...
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+function eo()
+{
+    emacsclient --no-wait $@ 2> /dev/null
+}
+
+function ez()
+{
+    if [ -z "$TMPDIR" ]; then
+        export TMPDIR=/tmp
+    fi
+
+    fzf > $TMPDIR/elfzf.result
+    emacsclient --no-wait $(cat $TMPDIR/elfzf.result) 2> /dev/null
+    rm -f $TMPDIR/elfzf.result
+}
