@@ -14,6 +14,8 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+
 function eo()
 {
     emacsclient --no-wait $@ 2> /dev/null
@@ -35,14 +37,19 @@ function fo() {
     out=$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
     key=$(head -1 <<< "$out")
     file=$(head -2 <<< "$out" | tail -1)
-    if [ -n "$file" ]; then
+    if [[ -n "$file" ]]; then
         # [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-        [ "$key" = ctrl-o ] && xdg-open "$file" || emacsclient --no-wait "$file" 2> /dev/null
+
+        if [[ "$key" = ctrl-o ]]; then
+            xdg-open "$file" & disown
+        else
+            emacsclient --no-wait "$file" 2> /dev/null
+        fi
     fi
 }
 
 # fd - cd to selected directory
-fd() {
+function fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
