@@ -10,4 +10,11 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-export PATH=/home/sanford/.gem/ruby/2.2.0/bin:$PATH
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+export FZF_DEFAULT_OPTS='-x -m --sort 10000'
+
+export QT_STYLE_OVERRIDE=GTK+
+
+export SXHKD_SHELL=zsh
+
+export PATH=/home/sanford/.gem/ruby/2.3.0/bin:$PATH

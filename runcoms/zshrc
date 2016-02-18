@@ -12,13 +12,19 @@ fi
 
 # Customize to your needs...
 
+alias vim='nvim'
+
+alias rscp='rsync -hv --progress'
+alias rsmv='rsync -hv --progress --remove-source-files'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+[ -f ~/.zprezto/k/k.sh ] && source ~/.zprezto/k/k.sh
+alias kj='k -h --no-vcs'
 
 function eo()
 {
-    emacsclient --no-wait $@ 2> /dev/null
+    python ~/bin/eopen.py "$@"
 }
 
 function ez()
@@ -48,7 +54,7 @@ function fo() {
     fi
 }
 
-# fd - cd to selected directory
+# fd - cd to a file's directory
 function fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
@@ -60,4 +66,8 @@ function cdf() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+function randfile() {
+   find "$1" -maxdepth 1 -type f | shuf -n$2
 }

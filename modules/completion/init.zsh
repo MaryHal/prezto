@@ -38,6 +38,8 @@ unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 
+# zstyle ':completion:*' insert-tab pending
+
 # Case-insensitive (all), partial-word, and then substring completion.
 if zstyle -t ':prezto:module:completion:*' case-sensitive; then
   zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
