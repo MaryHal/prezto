@@ -19,6 +19,17 @@ alias rsmv='rsync -hv --progress --remove-source-files'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# ALT-I - Paste the selected entry from locate output into the command line
+fzf-locate-widget() {
+  local selected
+  if selected=$(locate $(pwd) | fzf -q "$LBUFFER"); then
+    LBUFFER=$selected
+  fi
+  zle redisplay
+}
+zle     -N    fzf-locate-widget
+bindkey '\ei' fzf-locate-widget
+
 [ -f ~/.zprezto/k/k.sh ] && source ~/.zprezto/k/k.sh
 alias kj='k -h --no-vcs'
 
@@ -70,4 +81,23 @@ function cdf() {
 
 function randfile() {
    find "$1" -maxdepth 1 -type f | shuf -n$2
+}
+
+function git-cloc() {
+    git diff --stat $(git hash-object -t tree /dev/null)
+}
+
+function mkbackup() {
+    local currentTime=$(date +%Y-%m-%d)
+    local tag=$1
+    local dir=$2
+    tar czvf "$tag-$currentTime.tar.gz" "$dir"
+}
+
+function git-gc() {
+    find . -name '*.git' -execdir sh -c 'cd {} && git repack -f -a -d --depth=250 --window=250' \;
+}
+
+function chrome-min {
+    chromium --app=$1
 }
