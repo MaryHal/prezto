@@ -101,3 +101,8 @@ function git-gc() {
 function chrome-min {
     chromium --app=$1
 }
+
+function fileswap() {
+    tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
+    mv "$1" "$tmpfile" && mv "$2" "$1" &&  mv "$tmpfile" "$2"
+}
