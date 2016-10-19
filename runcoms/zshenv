@@ -22,3 +22,5 @@ command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | he
 export QT_STYLE_OVERRIDE=GTK+
 
 export SXHKD_SHELL=zsh
+
+export PULSEMIXER_BAR_STYLE="┌╶┐╴└┘▄  ◆┆";
