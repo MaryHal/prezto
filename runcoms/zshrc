@@ -12,8 +12,6 @@ fi
 
 # Customize to your needs...
 
-alias vim='nvim'
-
 alias rscp='rsync -hv --progress'
 alias rsmv='rsync -hv --progress --remove-source-files'
 
